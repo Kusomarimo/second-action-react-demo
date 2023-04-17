@@ -1,0 +1,59 @@
+name: Deploy Project
+on: push
+# Run all these tests whenever a push happens
+# Whenever we push to the remote repository
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        # Specify Action https://github.com/actions/checkout
+        uses: actions/checkout@v3
+        # Define configuration for the action
+        # with: (don't need this at this point)
+      - name: Install NodeJS
+        # view list of pre-installed software, no need to install if its there
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+        # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+        # 
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+  deploy:
+    # This job will run parallel to "test"
+    # Every job gets its own runner - its own VM that's totally isolated from other machines and jobs
+    runs-on: ubuntu-latest
+    test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        # Specify Action https://github.com/actions/checkout
+        uses: actions/checkout@v3
+        # Define configuration for the action
+        # with: (don't need this at this point)
+      - name: Install NodeJS
+        # view list of pre-installed software, no need to install if its there
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+        # https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md
+        # 
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Build project
+        # Build the project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying ..."
+      
+      
+
+      
+
+
+
