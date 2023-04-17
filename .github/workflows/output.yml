@@ -1,0 +1,11 @@
+name: Output information
+on: workflow_dispatch
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      # Github actions creates some contexts data with various pieces of information about the event triggered, runner and other things
+      # that can be accessed inside the steps
+      - name: Output Github context
+        # Access dynamic state object, metadata that's made available by github
+        run: echo "${{ toJSON(github) }}"
