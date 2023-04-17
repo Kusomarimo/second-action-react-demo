@@ -1,5 +1,5 @@
 name: Deploy Project
-on: push
+on: [push, workflow_dispatch] # Multiple Triggers
 # Run all these tests whenever a push happens
 # Whenever we push to the remote repository
 jobs:
