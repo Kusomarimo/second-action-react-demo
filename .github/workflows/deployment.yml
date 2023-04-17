@@ -24,6 +24,8 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
+    # needs: deploy NEEDS to start after "test" has been finished successfully.
+    needs: test
     # This job will run parallel to "test"
     # Every job gets its own runner - its own VM that's totally isolated from other machines and jobs
     runs-on: ubuntu-latest
